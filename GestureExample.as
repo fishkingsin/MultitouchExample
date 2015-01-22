@@ -135,10 +135,10 @@
 			
 			sprite.x = 512;
 			sprite.y = 1400;
-			TweenLite.to(sprite, 1, {x:randomRange((stage.width*0.5)-10,(stage.width*0.5)+10),y:randomRange((stage.height*0.5)-10,(stage.height*0.5)+10)});
+			TweenLite.to(sprite, 1, {x:stage.width*0.5,y:stage.height*0.5 });
 			
-			bitmap.x = (300 - (bitmap.bitmapData.width / 2)) * -1;
-			bitmap.y = (400 - (bitmap.bitmapData.height / 2)) *-1;
+			bitmap.x = - bitmap.bitmapData.width / 2;
+			bitmap.y = - bitmap.bitmapData.height / 2;
 			sprite.addEventListener(TransformGestureEvent.GESTURE_ZOOM, onZoom);
 			sprite.addEventListener(TransformGestureEvent.GESTURE_ROTATE, onRotate);
 			sprite.addEventListener(MouseEvent.MOUSE_DOWN, startMove);			 
