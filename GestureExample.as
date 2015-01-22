@@ -12,6 +12,16 @@
 	import com.greensock.TweenLite;
 	import flash.events.KeyboardEvent;
 	import flash.display.StageDisplayState;
+	import flash.xml.*;
+	import flash.net.*;
+	import flash.events.*;
+	import flash.system.fscommand;
+	import flash.system.Security;
+	import flash.system.SecurityPanel;
+	import flash.filesystem.File;
+	import flash.net.FileFilter;
+	
+
 	[SWF(width=1024, height=768, frameRate=60, backgroundColor=0x000000)]
 	public class GestureExample extends Sprite
 	{
@@ -22,15 +32,23 @@
 		[Embed(source="lake.jpg")]
 		public var lakeImage:Class;
 		
-		
+		private var mXML:XML;
+		private var xmlLoader:URLLoader;	
 		public var scaleDebug:TextField;
 		public var rotateDebug:TextField;
 		
 		private var socket:mySocket;
 		private var port:int=3000;
 			private var host:String = "10.0.1.14";
+		private var WIDTH:int=1024;
+		private var HEIGHT:int=786;
 		public function GestureExample()
 		{
+			var XML_URL:String="config.xml";
+
+			var myXMLURL:URLRequest=new URLRequest(XML_URL);
+			xmlLoader=new URLLoader(myXMLURL);
+			xmlLoader.addEventListener(Event.COMPLETE,xmlLoaded,false, 0.0, true);
 			// Debug
 			var tf:TextFormat = new TextFormat();
 			tf.color = 0xffffff;
@@ -50,10 +68,17 @@
 			this.stage.addChild(this.rotateDebug);
 			this.stage.addEventListener(KeyboardEvent.KEY_DOWN,keyDown);
 
-			socket = new mySocket(host, port);
-				socket.addEventListener(Event.COMPLETE, socketHandler);
 			Multitouch.inputMode = MultitouchInputMode.GESTURE;
 			
+		}
+		//=====================================================================================================================================
+		private function xmlLoaded(event:Event):void {
+			this.mXML=XML(xmlLoader.data);
+			socket=new mySocket(this.mXML.IP,this.mXML.PORT);
+			
+			
+			socket.addEventListener(Event.COMPLETE, socketHandler);
+
 		}
 		public function socketHandler(e:Event) {
 			var name:String = socket.socketName;
@@ -135,7 +160,7 @@
 			
 			sprite.x = 512;
 			sprite.y = 1400;
-			TweenLite.to(sprite, 1, {x:stage.width*0.5,y:stage.height*0.5 });
+			TweenLite.to(sprite, 1, {x:WIDTH*0.5+randomRange(-100,100),y:HEIGHT*0.5 +randomRange(-100,100)});
 			
 			bitmap.x = - bitmap.bitmapData.width / 2;
 			bitmap.y = - bitmap.bitmapData.height / 2;
