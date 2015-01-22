@@ -28,7 +28,7 @@
 		
 		private var socket:mySocket;
 		private var port:int=3000;
-			private var host:String = "127.0.0.1";
+			private var host:String = "10.0.1.14";
 		public function GestureExample()
 		{
 			// Debug
@@ -60,7 +60,9 @@
 			var value:int = socket.socketValue;
 			trace(name + ":" + value);
 			switch(name) {
-			
+				case '/fire':
+					createPhotoObject(value);
+				break;
 			}
 		}
 		function startMove(evt:MouseEvent):void {
@@ -133,7 +135,7 @@
 			
 			sprite.x = 512;
 			sprite.y = 1400;
-			TweenLite.to(sprite, 1, {x:randomRange(100,stage.width-100),y:randomRange(100,stage.height-100)});
+			TweenLite.to(sprite, 1, {x:randomRange((stage.width*0.5)-100,(stage.width*0.5)+100),y:randomRange((stage.height*0.5)-100,(stage.height*0.5)+100)});
 			
 			bitmap.x = (300 - (bitmap.bitmapData.width / 2)) * -1;
 			bitmap.y = (400 - (bitmap.bitmapData.height / 2)) *-1;
