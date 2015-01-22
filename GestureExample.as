@@ -135,7 +135,7 @@
 			
 			sprite.x = 512;
 			sprite.y = 1400;
-			TweenLite.to(sprite, 1, {x:randomRange((stage.width*0.5)-100,(stage.width*0.5)+100),y:randomRange((stage.height*0.5)-100,(stage.height*0.5)+100)});
+			TweenLite.to(sprite, 1, {x:randomRange((stage.width*0.5)-10,(stage.width*0.5)+10),y:randomRange((stage.height*0.5)-10,(stage.height*0.5)+10)});
 			
 			bitmap.x = (300 - (bitmap.bitmapData.width / 2)) * -1;
 			bitmap.y = (400 - (bitmap.bitmapData.height / 2)) *-1;
